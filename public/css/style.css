@@ -1,0 +1,219 @@
+/* Split Screen Vertically*/
+.wrap {
+    width: 100%;
+    overflow: auto;
+}
+
+.ftop-l {
+    float: left; 
+    width: 15%;
+    height: 600px;
+    background-color: #F4FF81;
+    opacity: 0.8;
+    overflow: auto;
+}
+
+.ftop-2 {
+    left: 16%;
+    width: 15%;
+    height: 500px;
+    background-color: #F4FF81;
+    opacity: 0.8;
+    overflow: auto;
+}
+
+.fleft{
+    float:left;
+    width: 55%;
+}
+
+.fright {
+    float: right;
+    width: 45%;    
+}
+
+
+/* Treemap */
+body {
+    overflow: hidden;
+    margin: 0;
+    font-size: 16px;
+    font-family: "Helvetica Neue", Helvetica;
+}
+
+p {
+  margin: 5px 0px 5px 0px;
+  font-size: 16px;
+}
+
+h4 {
+  margin: 5px 0px 5px 0px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+h3 {
+  margin: 5px 0px 5px 0px;
+  font-size: 18px;
+  font-weight: bold;
+  /*color: #996633;*/
+  color: #ff9c9c;
+}
+
+.header {
+    z-index: 1;
+    display: block;
+    font-size: 26px;
+    font-weight: 200;
+    text-shadow: 0 1px 0 #fff;
+}
+
+svg {
+    overflow: hidden;
+}
+
+rect {
+    pointer-events: all;
+    cursor: pointer;
+    stroke: #EEEEEE;
+}
+
+.chart {
+    display: block;
+    margin: auto;
+}
+
+.parent .label {
+    color: #000000;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    -webkit-text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    -moz-text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+    font-style: italic;
+}
+
+.labelbody {
+    background: transparent;
+}
+
+.child .label {
+    font-size: 14px;
+    margin: 1px;
+    white-space: pre;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    -webkit-text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    -moz-text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.child .label {
+    white-space: pre-wrap;
+    text-align: center;
+    text-overflow: ellipsis;
+}
+
+.cell {
+    font-size: 11px;
+    cursor: pointer
+}
+
+/*treemap grandparent end */
+
+/*line chart*/
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.grid path,
+.grid line {
+  fill: none;
+  stroke: rgba(0, 0, 0, 0.25);
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke-width: 2.5px;
+}
+
+/*heatmap*/
+.axis text {
+    font-family: sans-serif;
+    font-size: 11px;
+}
+
+#TSheader{
+  position: fixed;
+}
+/*heatmap end*/
+
+/*legend start*/
+.legend rect {
+  stroke-width: 0px;
+}
+
+.legend text {
+  text-anchor: middle;
+  pointer-events: auto;
+  font-size: 16px;
+  font-family: sans-serif;
+  fill: black;
+}
+
+/*bar chart (treemap-4)*/
+.bar {
+  fill: steelblue;
+}
+.axis--x path {
+  display: none;
+}
+.brush {
+  fill: lightgray;
+  /*fill-opacity: .75;*/
+  fill-opacity: .3;
+  shape-rendering: crispEdges;
+}
+
+
+/* stacked bar chart */
+
+#header h1 {
+  text-transform: uppercase;
+  font-size: 18px;
+}
+
+#header {
+  line-height: 1.4em;
+  margin-bottom: 16px;
+}
+
+.bar {
+  font-family: Arial;
+  font-size: 12px;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  stroke-width: 2;
+}
+
+.y.axis path {
+  stroke-width: 0
+}
+
+.y.axis line {
+  stroke: #aaa;
+  stroke-width: 2;
+}
+
+.legend {
+  font-style: italic;
+}

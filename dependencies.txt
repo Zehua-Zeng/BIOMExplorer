@@ -1,0 +1,4 @@
+conda create -n bioviz python=2.7
+activate bioviz
+pip install flask==0.12
+pip install xlrd

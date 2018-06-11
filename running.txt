@@ -1,0 +1,7 @@
+open cmd
+go to the directory where "app.py" file is
+
+activate bioviz
+
+## To run the server
+python app.py

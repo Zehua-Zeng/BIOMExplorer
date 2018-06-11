@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <title>Treemap</title>
+    <!-- css -->
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- Treemap -->
+    <script type="text/javascript" src="http://www.billdwhite.com/wordpress/wp-content/js/browserdetect/browserdetect.js"></script>
+    <script type="text/javascript" src="js/include/modernizr.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/include/d3.js"></script>
+    <script type="text/javascript" src='js/treemap.js'></script>
+    <script type="text/javascript" src='js/linechart.js'></script>
+    <script type="text/javascript" src='js/barchart.js'></script>
+    <script type="text/javascript" src='js/control.js'></script>
+    <script type="text/javascript" src='js/heatmap.js'></script>
+    <script type="text/javascript" src='js/stackedbarchart.js'></script>
+    <script type="text/javascript" src='js/mullinechart.js'></script>
+    <script data-require="d3@3.4.6" data-semver="3.4.6" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.6/d3.min.js"></script>
+    <!-- Select Filter 
+    <script type="text/javascript" src="js/selectFilter.js"></script>-->
+<body>
+    <div class="wrap">
+        <div class="fleft">
+            <button onclick="openControl()">Show/Hide Control Panel</button>
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <button onclick="openLog()">Show/Hide Operation Log</button>
+            <div class="ftop-l" id="controlPanel" style="z-index: 1; position: absolute; top: 25px; display: none; opacity: 0.8">
+                <h3>Global Setting</h3>
+                <input type="checkbox" name="SExculded" id="SExculded"> Show Exculded
+                <h3>Treemap</h3>
+                <input type="checkbox" name="RHeader" id="RHeader"> Remove Treemap Header
+                <p></p>
+                Size by: &nbsp
+                <select id="sizeBy">
+                    <option value="t1">T1 Value</option>
+                    <option value="t2">T2 Value</option>
+                    <option value="aver">Average</option>
+                    <option value="tt12">|T1 - T2|</option>
+                    <option value="none">None</option>
+                </select>
+                &nbsp&nbsp&nbsp&nbsp
+                Color by: &nbsp
+                <select id="colorBy">
+                    <option value="t1">T1 Value</option>
+                    <option value="t2">T2 Value</option>
+                    <option value="aver">Average</option>
+                    <option value="diff12">T1 - T2</option>
+                    <option value="diff21">T2 - T1</option>
+                    <option value="pdiff12">(T1 - T2) / T2 </option>
+                    <option value="pdiff21">(T2 - T1) / T1</option>
+                    <option value="none">None</option>
+                </select>
+                <h4 id="slctPText">Selected Parent Node: (None)</h4>
+                <button onclick="groupUngroup()">Group / Ungroup</button>
+                <button onclick="includeExclude()">Include / Exclude</button>
+                <h4 id="slctCText">Selected Leave Node: (None)</h4>
+                <button onclick="cancelUncancel()">Include / Exclude</button>
+                <h4 id="treeAggText">Tree Aggregation (Global)</h4>
+                Absolute Aggregation (Max Level): &nbsp
+                <select id="treeAgg"></select>
+                <p></p>
+                Relative Aggregation: 
+                <button onclick="minusLevel()">Level - 1</button>
+                &nbsp &nbsp<button onclick="addLevel()">Level + 1</button>
+                <h3>Time-Series Chart</h3>
+                Select Chart: &nbsp
+                <select id="timeChart">
+                    <option value="linechart">Line Chart</option>
+                    <option value="heatmap">Heatmap</option>
+                    <!--<option value="stackedbar">Stacked Bar Chart</option>-->
+                    <option value="mullinechart">Multi Line Chart</option>
+                </select>
+                <h3>Bar Chart</h3>
+                <input type="radio" name="select" value="agg" onclick="aggFilChange(this);">Aggregate
+                <input type="radio" name="select" value="filter" onclick="aggFilChange(this);" checked>Filter
+                <p></p>
+                BarChart Data Source: &nbsp
+                <select id="brChart">
+                  <option value="t1v">T1 Value</option>
+                  <option value="t2v">T2 Value</option>
+                  <option value="t1t2">T1 - T2</option>
+                  <option value="t2t1">T2 - T1</option>
+                  <option value="tt12">|T1 - T2|</option>
+                </select>
+                <p></p>
+                Apply Current Brush:&nbsp
+                <button onclick="applyBrush()">Apply</button>
+            </div>
+            <div class="ftop-2" id="operationLog" style="z-index: 1; position: absolute; top: 25px; display: none; opacity: 0.8">
+                <p id="nodeInfo"></p>
+                <!--Start Over:&nbsp
+                <button onclick="clearAllLog()">Clear</button>
+                <p></p>
+                Remove the last operation: &nbsp
+                <button onclick="undo()">Undo</button>-->
+                <p id="operationsList"></p>
+
+            </div>
+            <p></p>
+            MouseOver Node Infomation:
+            <p id="mouseOverNodeInfo" style="height: 40px"></p>
+            <p id="path">
+            <p id="treemap">
+            <p id="treemapTitle" style="height: 20px; "></p>
+            <h4>Color Legend of Nodes:</h4>
+            <div id="legend"></div>
+
+        </div>
+        <div class="fright">
+            <div style="position: relative;" id="TSheader"></div>
+            <div style="height: 660px; width:1100px; overflow-y: auto; position: relative;" class="timeseries"></div>
+            <p id="timeTitle" style="height: 20px; padding-top: 10px"></p>
+            <div><svg id="dischart"></svg></div>
+            <p id="barchartTitle" style="height: 20px; padding-top: 10px"></p>
+        </div>
+    </div>
+
+</body>
